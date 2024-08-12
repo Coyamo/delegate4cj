@@ -22,9 +22,5 @@ main(): Int64 {
     var demo = Demo()
     println(demo.world)
     println(demo.world)
-
-    var clazz = {
-
-    }()
     return 0
 }
