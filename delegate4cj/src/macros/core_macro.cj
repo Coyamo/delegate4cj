@@ -24,7 +24,8 @@ let PROP_DELEGATE_PLACEHOLER_TOKENS = Token(TokenKind.IDENTIFIER, "_PROP_DELEGAT
  @param attrs 被委托的对象
  */
 private func genDelegateTokens(attrs: Tokens, input: Tokens): Tokens {
-    let decl = parseDecl(input)
+    let decl = guessDecl(input)
+    decl.dump()
     return match (decl) {
         //变量
         case decl: VarDecl =>
@@ -50,6 +51,26 @@ private func genDelegateTokens(attrs: Tokens, input: Tokens): Tokens {
             diagReport(DiagReportLevel.ERROR, input, "Unsupported @Delegate usage.", "Illegal expression")
             input
     }
+}
+
+/**
+  如果解析失败，尝试补全decl
+*/
+private func guessDecl(input: Tokens): Decl {
+    input.dump()
+    return try{
+        parseDecl(input)
+    } catch (e:Exception) {
+        let string = input.toString()
+        // 猜测是属性定义 
+        if(string.contains("prop ")){
+            //不带{}的情况
+            input.append(quote({}))
+            parseDecl(input)
+        } else {
+            throw e
+        }
+    }    
 }
 
 /**
