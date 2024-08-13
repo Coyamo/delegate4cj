@@ -25,7 +25,6 @@ let PROP_DELEGATE_PLACEHOLER_TOKENS = Token(TokenKind.IDENTIFIER, "_PROP_DELEGAT
  */
 private func genDelegateTokens(attrs: Tokens, input: Tokens): Tokens {
     let decl = guessDecl(input)
-    decl.dump()
     return match (decl) {
         //变量
         case decl: VarDecl =>

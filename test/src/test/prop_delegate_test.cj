@@ -79,4 +79,19 @@ class PropDelegateTest {
         // cannot assign to immutable value
         // staticImmutProp = "test"
     }
+
+
+    // //测试不带{} 这里语法检查报错，实际正常编译运行
+    // @Delegate[delegate]
+    // mut prop mutProp2: String 
+    // @TestCase
+    // func testMutProp2() {
+    //     @Assert(mutProp2 == defStr + "@get")
+
+    //     mutProp2 = "test"
+
+    //     @Assert(delegate.str == "test@set")
+
+    //     @Assert(mutProp2 == "test@set@get")
+    // }
 }
