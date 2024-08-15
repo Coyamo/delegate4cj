@@ -56,20 +56,26 @@ private func genDelegateTokens(attrs: Tokens, input: Tokens): Tokens {
   如果解析失败，尝试补全decl
 */
 private func guessDecl(input: Tokens): Decl {
-    input.dump()
+    let string = input.toString()
     return try{
-        parseDecl(input)
-    } catch (e:Exception) {
-        let string = input.toString()
+        let newTokens = input.copy()
         // 猜测是属性定义 
-        if(string.contains("prop ")){
+        if(string.contains("prop ") && !string.contains("{") && !string.contains("}")){
             //不带{}的情况
-            input.append(quote({}))
-            parseDecl(input)
-        } else {
-            throw e
+            newTokens.append(quote({}))
         }
+        parseDecl(newTokens)
+    } catch (e:Exception) {
+        parseDecl(input)
     }    
+}
+
+extend Tokens {
+    public func copy() : Tokens {
+        let copy = Tokens()
+        copy.append(this)
+        return copy
+    }
 }
 
 /**

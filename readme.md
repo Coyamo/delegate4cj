@@ -1,7 +1,11 @@
 # Delegate4cj 委托
 
 一个基于宏的变量及属性委托库，适用于 仓颉 编程语言。
+## 问卷
+不知道也没有人使用这个库-.-   
+这里想调查下那种委托的编写方式更加可以被接受呢，欢迎在issue回复
 
+[问卷地址](https://gitcode.com/Cosp/delegate4cj/issues/5)
 ## 特性
 1. 变量委托：将`let`、`var`修饰的变量被转换为属性实现属性委托
 2. 属性委托：许你将属性的实现细节委托给另一个对象处理
@@ -97,7 +101,7 @@ class StringDelegate <: ReadWriteProperty<String> {
   
     
 ### 属性委托 
-使用`@Delegate`宏标注在属性上，把被委托对象作为参数传入即可，注意属性后面的`{}`必须要添加，但是不需要写`get`和`set`，如果实现了`get`和`set`会被委托的对象替换掉！原来的getter/setter会保存在`DelegateProperty`结构中。
+使用`@Delegate`宏标注在属性上，把被委托对象作为参数传入即可，注意属性后面的`{}`在`version <= 0.53.4`不添加可能LSP会报错，但是可以编译运行成功，以上版本可以省略`{}`，但是不需要写`get`和`set`，如果实现了`get`和`set`会被委托的对象替换掉！原来的getter/setter会保存在`DelegateProperty`结构中。
 
 ```cj
 class TestProp {

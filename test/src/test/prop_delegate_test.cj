@@ -81,17 +81,17 @@ class PropDelegateTest {
     }
 
 
-    // //测试不带{} 这里语法检查报错，实际正常编译运行
-    // @Delegate[delegate]
-    // mut prop mutProp2: String 
-    // @TestCase
-    // func testMutProp2() {
-    //     @Assert(mutProp2 == defStr + "@get")
+    //测试不带{}
+    @Delegate[delegate]
+    mut prop mutProp2: String 
+    @TestCase
+    func testMutProp2() {
+        @Assert(mutProp2 == defStr + "@get")
 
-    //     mutProp2 = "test"
+        mutProp2 = "test"
 
-    //     @Assert(delegate.str == "test@set")
+        @Assert(delegate.str == "test@set")
 
-    //     @Assert(mutProp2 == "test@set@get")
-    // }
+        @Assert(mutProp2 == "test@set@get")
+    }
 }
