@@ -70,6 +70,34 @@ private func guessDecl(input: Tokens): Decl {
     }    
 }
 
+private const BY_KEY = " by "
+
+private func maybeDelegateDecl(input: Tokens):Bool{
+    let tokens = input.toString()
+
+    let maybeVar = tokens.contains("var ") || tokens.contains("let ")
+    let maybeProp = tokens.contains("prop ") 
+    
+    if(!maybeProp && !maybeVar){
+        return false
+    }
+
+    return tokens.contains(BY_KEY) 
+}
+
+/**
+  解析自定义语法委托定义
+*/
+private func parseDelegateDecl(input: Tokens):(Tokens,Tokens){
+    let tokens = input.toString()
+    if(let Some(index) <- tokens.lastIndexOf(BY_KEY)){
+        let decl = cangjieLex(tokens[..index])
+        let delegate = cangjieLex(tokens[index + BY_KEY.size..])
+        return (delegate, decl)
+    }
+    throw ParseASTException("parsing delegate decl error.")
+}
+
 extend Tokens {
     public func copy() : Tokens {
         let copy = Tokens()
@@ -82,8 +110,12 @@ extend Tokens {
   委托标记，需要配合其他注解实现委托功能
  */
 public macro Delegate(input: Tokens): Tokens {
-    let attrs = PROP_DELEGATE_PLACEHOLER_TOKENS.toTokens()
-    return genDelegateTokens(attrs, input)
+    let (attrs, tokens)  = if(maybeDelegateDecl(input)){
+        parseDelegateDecl(input)
+    } else {
+        (PROP_DELEGATE_PLACEHOLER_TOKENS.toTokens(), input)
+    }
+    return genDelegateTokens(attrs, tokens)
 }
 
 /**

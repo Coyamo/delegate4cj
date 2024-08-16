@@ -16,11 +16,16 @@ class Demo{
     }]
     let world:String
 
+
+    @Delegate(let world2:String by lazy { "world" })
 }
+
 
 main(): Int64 {
     var demo = Demo()
     println(demo.world)
     println(demo.world)
+    println(demo.world2)
+
     return 0
 }
