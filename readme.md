@@ -10,7 +10,8 @@
 1. 变量委托：将`let`、`var`修饰的变量被转换为属性实现属性委托
 2. 属性委托：许你将属性的实现细节委托给另一个对象处理
 3. 内置委托实现：`notNone`、`observable`、`vetoable`、`lazy`
-4. todo：函数委托与类委托（规划中）
+4. 委托DSL：支持使用`by`实现委托如`@Delegate(var varVar: String by delegate)`
+5. todo：函数委托与类委托（规划中）
 
 ## 开发计划
 [ ] 属性\变量委托 80%
@@ -97,11 +98,36 @@ class StringDelegate <: ReadWriteProperty<String> {
     }
 }
 ```
+### DSL
+`delegate4cj`提供了一个简易的DSL实现委托，在属性、变量定义后直接使用自定义的`by`关键字加上被委托对象：  
+```cj
+@Delegate(
+    var varVar: String by delegate
+)
+```
+当然以下写法也是ok的：  
+```cj
+@Delegate(
+    mut prop p1: String by delegate
+)
 
+@Delegate(
+    mut prop p2: String {} by delegate
+)
+
+
+@Delegate(
+    mut prop p3: String {
+        get(){ return "get"}
+        set(v){}
+    } by delegate
+)
+```
+除了使用DSL的方式还可以使用宏参数的方式实现委托，后面的例子都以宏参数的方式为例，但是都可以转换为DSL方式实现(扩展委托宏除如`@Lazy`外)。
   
     
 ### 属性委托 
-使用`@Delegate`宏标注在属性上，把被委托对象作为参数传入即可，注意属性后面的`{}`在`version <= 0.53.4`不添加可能LSP会报错，但是可以编译运行成功，以上版本可以省略`{}`，但是不需要写`get`和`set`，如果实现了`get`和`set`会被委托的对象替换掉！原来的getter/setter会保存在`DelegateProperty`结构中。
+使用`@Delegate`宏标注在属性上，把被委托对象作为参数传入即可，注意属性后面的`{}`可以省略，如果实现了`get`和`set`会被委托的对象替换，被替换的getter/setter会保存在`DelegateProperty`结构中。
 
 ```cj
 class TestProp {
@@ -117,6 +143,16 @@ class TestProp {
     
     @Delegate[StringDelegate()]
     public static mut prop mutStaticProp: String {}
+
+    @Delegate[StringDelegate()]
+    mut prop prop2Option:?String {
+        get(){
+            return "hello"
+        }
+        set(v){
+            temp2 = v
+        }
+    }
 }
 ```
 ### 变量委托
@@ -140,7 +176,7 @@ class TestVar {
 }
 ```
 ### Map类型委托
-对于标准库的`HashMap<K, V>`和`TreeMap<K, V>`使用扩展实现了属性委托。其他类似数据结构都可以通过扩展实现委托。
+对于标准库的`HashMap<String, V>`、`ConcurrentHashMap<String, V>`和`TreeMap<String, V>`使用扩展实现了属性委托。其他类似数据结构都可以通过扩展实现委托。
 
 限制：map中的key的名字要与类中的属性名字保持一致，且map的键类型须为字符串,值类型为属性的类型或更大范围的类型。
 

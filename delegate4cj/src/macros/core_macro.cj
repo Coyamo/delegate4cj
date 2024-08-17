@@ -91,8 +91,8 @@ private func maybeDelegateDecl(input: Tokens):Bool{
 private func parseDelegateDecl(input: Tokens):(Tokens,Tokens){
     let tokens = input.toString()
     if(let Some(index) <- tokens.lastIndexOf(BY_KEY)){
-        let decl = cangjieLex(tokens[..index])
-        let delegate = cangjieLex(tokens[index + BY_KEY.size..])
+        let decl = cangjieLex(tokens[..index], true)
+        let delegate = cangjieLex(tokens[index + BY_KEY.size..], true)
         return (delegate, decl)
     }
     throw ParseASTException("parsing delegate decl error.")

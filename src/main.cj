@@ -9,23 +9,21 @@ import std.random.*
 
 
 class Demo{
-    
-    @Delegate[lazy {
-        println("hello")
-        "world"
-    }]
-    let world:String
 
-
-    @Delegate(let world2:String by lazy { "world" })
+    @Delegate(
+        let world:String by lazy {
+            println("hello")
+            "world"
+        }
+    )
 }
 
 
 main(): Int64 {
     var demo = Demo()
+
     println(demo.world)
     println(demo.world)
-    println(demo.world2)
 
     return 0
 }
