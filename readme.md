@@ -123,7 +123,7 @@ class StringDelegate <: ReadWriteProperty<String> {
     } by delegate
 )
 ```
-除了使用DSL的方式还可以使用宏参数的方式实现委托，后面的例子都以宏参数的方式为例，但是都可以转换为DSL方式实现(扩展委托宏除如`@Lazy`外)。
+除了使用DSL的方式还可以使用宏参数的方式实现委托，后面的例子都以宏参数的方式为例，但是都可以转换为DSL方式实现(扩展委托宏如`@Lazy`除外)。
   
     
 ### 属性委托 

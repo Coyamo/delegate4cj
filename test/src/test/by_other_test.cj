@@ -23,7 +23,7 @@ class ByOtherTest {
         staticdelegate.str = defStr
     }
 
-    //测试var变量
+
     @Delegate(
         mut prop varVar: String {} by delegate
     )
@@ -38,7 +38,7 @@ class ByOtherTest {
         @Assert(varVar == "test@set@get")
     }
 
-    //测试var变量
+
     @Delegate(
         mut prop varVar2: String {
             get(){
@@ -46,7 +46,7 @@ class ByOtherTest {
             }
 
             set(v){
-                
+
             }
         } by delegate
     )
@@ -59,5 +59,39 @@ class ByOtherTest {
         @Assert(delegate.str == "test@set")
 
         @Assert(varVar2 == "test@set@get")
+    }
+
+     var temp = ""
+    @Delegate(
+        mut prop prop2:String {
+            get(){
+                return "hello"
+            }
+            set(v){
+                temp = v
+            }
+        } by TestGetterSetterStringDelegate()
+    )
+    
+    
+    //可变属性
+    @TestCase
+    func testProp2(){
+        @Assert(prop2 == "def@hello")
+        prop2 = "new"
+        @Assert(prop2 == "new@hello")
+        @Assert(temp == "new")
+    }
+
+
+    @Delegate(
+        var var1:String = "hello" by TestGetterSetterStringDelegate()
+    )
+    
+
+    //属性
+    @TestCase
+    func testVar1(){
+        @Assert(var1 == "def@hello")
     }
 }
