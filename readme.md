@@ -247,7 +247,7 @@ class Demo {
 }    
 
 ```
-这里提供了一个简化调用的宏`@Observable`，要求`@Observable`在`@Delegate`上面且`@Delegate`不需要参数。`@Observable`接受一个无名的函数调用，传入初始值和回调。
+这里提供了一个简化调用的宏`@Vetoable`，要求`@Vetoable`在`@Delegate`上面且`@Delegate`不需要参数。`@Vetoable`接受一个无名的函数调用，传入初始值和回调。
 ```cj
 class Demo {
     @Vetoable[("hello") { property, oldValue, newValue => 

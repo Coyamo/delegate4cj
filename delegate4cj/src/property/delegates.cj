@@ -67,10 +67,7 @@ public class NotNoneVar<T> <: ReadWriteProperty<T> where T <: Any {
     private var value: ?T = None
 
     public operator override func ()(property: DelegateProperty): T {
-        if (let Some(value) <- value) {
-            return value
-        }
-        throw IllegalStateException("Property ${property.name} should be initialized before get.")
+        return value ?? throw IllegalStateException("Property ${property.name} should be initialized before get.")
     }
 
     public operator override func ()(value: T, property: DelegateProperty) {
