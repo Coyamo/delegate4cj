@@ -8,7 +8,7 @@
 [问卷地址](https://gitcode.com/Cosp/delegate4cj/issues/5)
 ## 特性
 1. 变量委托：将`let`、`var`修饰的变量被转换为属性实现属性委托
-2. 属性委托：许你将属性的实现细节委托给另一个对象处理
+2. 属性委托：将属性的实现细节委托给另一个对象处理
 3. 内置委托实现：`notNone`、`observable`、`vetoable`、`lazy`
 4. 委托DSL：支持使用`by`实现委托如`@Delegate(var varVar: String by delegate)`
 5. todo：函数委托与类委托（规划中）
@@ -39,10 +39,10 @@ import delegate.property.*
 
 约定使用`operator func ()(value: T, property:DelegateProperty): Unit`把数据传递给被委托的对象。
 
-比如实现一个代理字符串读写的类：
+比如实现一个委托字符串读写的类：
 ```cj
 class StringDelegate {
-    private var str:String = "默认代理字符串"
+    private var str:String = "默认委托字符串"
 
     public operator func ()(property:DelegateProperty): String {
         return str
@@ -57,11 +57,11 @@ class StringDelegate {
 对于只读的属性，可以实现以下接口：
 ```cj
 /**
-    标注只读类型属性、变量代理需要实现的函数
+    标注只读类型属性、变量委托需要实现的函数
 */
 public interface ReadOnlyProperty<T> {
     /**
-        代理读取的函数
+        委托读取的函数
     */
     operator func ()(property:DelegateProperty): T
 }
@@ -70,16 +70,16 @@ public interface ReadOnlyProperty<T> {
 对于可读写的类型可以实现以下接口
 ```cj
 /**
-    标注读写类型属性、变量代理需要实现的函数
+    标注读写类型属性、变量委托需要实现的函数
 */
 public interface ReadWriteProperty<T> {
     /**
-        代理读取的函数
+        委托读取的函数
     */
     operator func ()(): T
 
     /**
-        代理写的函数
+        委托写的函数
     */
     operator func ()(value: T, property:DelegateProperty): Unit
 }
@@ -88,7 +88,7 @@ public interface ReadWriteProperty<T> {
 所以之前给出的例子可以写为：
 ```cj
 class StringDelegate <: ReadWriteProperty<String> {
-    private var str:String = "默认代理字符串"
+    private var str:String = "默认委托字符串"
 
     public operator override func ()(property:DelegateProperty): String {
         return str
