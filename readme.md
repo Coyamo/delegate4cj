@@ -1,11 +1,19 @@
-# Delegate4cj 委托
+<div align="center">
+<h1>delegate4cj</h1>
+</div>
 
-一个基于宏的变量及属性委托库，适用于 仓颉 编程语言。
-## 问卷
-不知道也没有人使用这个库-.-   
-这里想调查下那种委托的编写方式更加可以被接受呢，欢迎在issue回复
+<p align="center">
+<img alt="" src="https://img.shields.io/badge/release-v0.0.1-brightgreen" style="display: inline-block;" />
+<img alt="" src="https://img.shields.io/badge/cjc-v0.54.3-brightgreen" style="display: inline-block;" />
+<img alt="" src="https://img.shields.io/badge/cjcov-0.0%25-brightgreen" style="display: inline-block;" />
+<img alt="" src="https://img.shields.io/badge/state-孵化-brightgreen" style="display: inline-block;" />
+<img alt="" src="https://img.shields.io/badge/domain-HOS/Cloud/AI-brightgreen" style="display: inline-block;" />
+</p>
 
-[问卷地址](https://gitcode.com/Cosp/delegate4cj/issues/5)
+## 介绍
+
+一个基于宏的变量及属性委托库,可以方便快捷实现委托。
+
 ## 特性
 1. 变量委托：将`let`、`var`修饰的变量被转换为属性实现属性委托
 2. 属性委托：将属性的实现细节委托给另一个对象处理
