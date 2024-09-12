@@ -1,7 +1,7 @@
 [dependencies]
   delegate = {path = "../delegate4cj"}
 [package]
-  cjc-version = "0.54.3"
+  cjc-version = "0.55.3"
   compile-option = "-Woff unused --diagnostic-format=noColor"
   description = "Through macros implementing code delegation."
   link-option = ""
