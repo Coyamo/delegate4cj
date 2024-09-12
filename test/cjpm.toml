@@ -1,5 +1,5 @@
 [dependencies]
-  delegate = {path = "../delegate4cj"}
+  delegate = {path = "../"}
 [package]
   cjc-version = "0.55.3"
   compile-option = "-Woff unused --diagnostic-format=noColor"

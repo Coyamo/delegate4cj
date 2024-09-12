@@ -29,6 +29,21 @@
 [ ] 类委托
 
 ## 使用文档
+### 添加依赖
+
+在项目的`cjpm.toml`文件中的`[dependencies]`下添加以下依赖：
+
+```
+
+[dependencies.delegate]
+
+    git = "https://gitcode.com/Dacec/delegate4cj"
+
+    branch = "main"
+
+    output-type = "static"
+
+```
 ### 导入包
 使用注解需要导入`delegate.macros.*`
 

@@ -1,13 +1,13 @@
 [dependencies]
-
+  delegate = {path = "../"}
 [package]
   cjc-version = "0.55.3"
   compile-option = "-Woff unused --diagnostic-format=noColor"
   description = "Through macros implementing code delegation."
   link-option = ""
-  name = "delegate"
-  output-type = "static"
+  name = "delegateDemo"
+  output-type = "executable"
   src-dir = "src"
   target-dir = ""
   version = "1.0.0"
-  [package.package-configuration]
+  package-configuration = {}
