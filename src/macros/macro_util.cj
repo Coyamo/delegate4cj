@@ -20,10 +20,10 @@ import delegate.property.*
  */
 func getAnnotatedRealDecl(decl: MacroExpandDecl): (ArrayList<Tokens>, Decl) {
     let annotationTokens = ArrayList<Tokens>()
-    annotationTokens.append(buildAnnoTokens(decl))
+    annotationTokens.add(buildAnnoTokens(decl))
     var subDecl = decl
-    while (let Some(macroInputDecl) <- subDecl.macroInputDecl as MacroExpandDecl) {
-        annotationTokens.append(buildAnnoTokens(macroInputDecl))
+    while (let Some(macroInputDecl) <- (subDecl.macroInputDecl as MacroExpandDecl)) {
+        annotationTokens.add(buildAnnoTokens(macroInputDecl))
         subDecl = macroInputDecl
     }
     return (annotationTokens, subDecl.macroInputDecl)
@@ -133,12 +133,12 @@ func getRealType(decl: PropDecl): TypeNode {
     }
 
     let tokens = decl.declType.toTokens()
-    if (let Some(declType) <- declType as RefType) {
+    if (let Some(declType) <- (declType as RefType)) {
         if (declType.identifier.value == "Option") {
             return declType.typeArguments[0]
         }
     }
-    if (let Some(declType) <- declType as PrefixType) {
+    if (let Some(declType) <- (declType as PrefixType)) {
         return declType.baseType
     }
     return declType
@@ -152,12 +152,12 @@ func isOptionType(decl: PropDecl): Bool {
         throw Exception("Undeclared type node.")
     }
     let tokens = decl.declType.toTokens()
-    if (let Some(declType) <- declType as RefType) {
+    if (let Some(declType) <- (declType as RefType)) {
         if (declType.identifier.value == "Option") {
             return true
         }
     }
-    if (let Some(declType) <- declType as PrefixType) {
+    if (let Some(declType) <- (declType as PrefixType)) {
         return declType.prefixOps[0].kind == TokenKind.QUEST
     }
     return false
